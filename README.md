@@ -1,7 +1,7 @@
 # fireglyph
 A simple localization utility library for alphabets, glyphs, and other writing systems.
 
-Note: Fireglyph is *not* a full-fledged CJK Input Method Editor, nor does it aspire to be. It's just a simple library that embodies the basic rules about how certain writing systems work.
+Fireglyph is *not* a full-fledged CJK Input Method Editor, nor does it aspire to be. It's just a simple library that embodies the basic rules about how certain writing systems work.
 
 ## Korean:
 
