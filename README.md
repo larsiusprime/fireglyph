@@ -5,9 +5,9 @@ Fireglyph is *not* a full-fledged CJK Input Method Editor, nor does it aspire to
 
 Fireglyph currently supports the following writing systems:
 
-* Korean Hangul
-* Japanese Katakana
-* Japanese Hiragana
+* Korean hangul
+* Japanese katakana
+* Japanese hiragana
 
 ## Korean
 
