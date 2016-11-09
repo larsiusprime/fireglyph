@@ -3,7 +3,13 @@ A simple localization utility library for alphabets, glyphs, and other writing s
 
 Fireglyph is *not* a full-fledged CJK Input Method Editor, nor does it aspire to be. It's just a simple library that embodies the basic rules about how certain writing systems work.
 
-## Korean:
+Fireglyph currently supports the following writing systems:
+
+* Korean Hangul
+* Japanese Katakana
+* Japanese Hiragana
+
+## Korean
 
 Composing [hangul](https://en.wikipedia.org/wiki/Hangul) characters from [jamo](https://en.wikipedia.org/wiki/Hangul_consonant_and_vowel_tables) components:
 
@@ -23,7 +29,7 @@ Korean composes hangul characters like 녹 from component characters called jamo
 
 The `compose()` function will automatically convert from compatibility jamos to conjoining jamos, so you don't have to worry about what kind you're passing in.
 
-## Japanese:
+## Japanese
 
 ###Katakana
 Applying diacritics to [katakana](https://en.wikipedia.org/wiki/Katakana) characters:
