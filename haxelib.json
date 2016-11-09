@@ -1,0 +1,11 @@
+{
+ "name": "fireglyph",
+ "url" : "https://github.com/larsiusprime/fireglyph",
+ "license": "MIT",
+ "tags": ["translation","localization","language","text"],
+ "description": "A Haxe utility library for alphabets, glyphs, and other writing systems",
+ "version": "0.0.0",
+ "releasenote": "",
+ "contributors": ["larsiusprime"],
+ "dependencies": {}
+}
