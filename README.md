@@ -38,7 +38,7 @@ You can retrieve an array of diacritics with `Katakana.getDiacritics()` and a li
 ###Hiragana
 Applying diacritics to [hiragana](https://en.wikipedia.org/wiki/Hiragana) characters:
 ```haxe
-var character = Katakana.applyDiacritic("゛","か");
+var character = Hiragana.applyDiacritic("゛","か");
 trace(character); //prints "が";
 ```
 
