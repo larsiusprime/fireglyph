@@ -15,7 +15,7 @@ trace("nog"); //prints "녹";
 
 You must create an instance of Hangul in order to compose characters. This is because it must construct an internal lookup table to do the work. I'm not sure if I should try making that static or not, we'll see.
 
-A complete list of jamos can be retrieved by calling `Hangul.getLeadConsonants();`, `Hangul.getTailConsonants();`, and `Hangul.getVowels();`. 
+A complete list of jamos can be retrieved by calling `Hangul.getLeadConsonants()`, `Hangul.getTailConsonants()`, and `Hangul.getVowels()`. 
 
 ###Conjoining vs. Compatibility Jamos
 
