@@ -16,7 +16,7 @@ Composing [hangul](https://en.wikipedia.org/wiki/Hangul) characters from [jamo](
 ```haxe
 var hangul = new Hangul();
 var nog = hangul.compose("ㄴ", "ㅗ", "ㄱ");
-trace("nog"); //prints "녹";
+trace(nog); //prints "녹";
 ```
 
 You must create an instance of Hangul in order to compose characters. This is because it must construct an internal lookup table to do the work. I'm not sure if I should try making that static or not, we'll see.
