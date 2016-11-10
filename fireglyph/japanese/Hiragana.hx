@@ -56,6 +56,45 @@ class Hiragana
 	}
 	
 	/**
+	 * Strips any diacritic marks from a hiragana character, if possible
+	 * @param	character a hiragana character
+	 * @return	the unmarked version of the character, or the original character if it had no diacritic
+	 */
+	public static function removeDiacritic(character:String):String
+	{
+		return switch(character)
+		{
+			case "が":"か";
+			case "ぎ":"き";
+			case "ぐ":"く";
+			case "げ":"け";
+			case "ご":"こ";
+			case "ざ":"さ";
+			case "じ":"し";
+			case "ず":"す";
+			case "ぜ":"せ";
+			case "ぞ":"そ";
+			case "だ":"た";
+			case "ぢ":"ち";
+			case "づ":"つ";
+			case "で":"て";
+			case "ど":"と";
+			case "ば":"は";
+			case "び":"ひ";
+			case "ぶ":"ふ";
+			case "べ":"へ";
+			case "ぼ":"ほ";
+			case "ゔ":"う";
+			case "ぱ":"は";
+			case "ぴ":"ひ";
+			case "ぷ":"ふ";
+			case "ぺ":"へ";
+			case "ぽ":"ほ";
+			default: character;
+		}
+	}
+	
+	/**
 	 * Returns an array of diacritics that can be applied to hiragana characters
 	 * @return
 	 */
@@ -95,7 +134,18 @@ class Hiragana
 	}
 	
 	/**
-	 * Returns an array of hiragana characters, including variations marked with diacritics
+	 * Returns an array of small-form hiragana characters
+	 * @return
+	 */
+	public static function getSmallCharacters():Array<String>
+	{
+		return [
+			"ぁ", "ぃ", "ぅ", "ぇ", "ぉ", "ゕ", "ゖ", "っ", "ゃ", "ゅ", "ょ", "ゎ"
+		];
+	}
+	
+	/**
+	 * Returns an array of hiragana characters, including variations marked with diacritics and small forms
 	 * @return
 	 */
 	public static function getAllCharacters():Array<String>
@@ -116,7 +166,58 @@ class Hiragana
 			"や","ゆ","よ",
 			"ら","り","る","れ","ろ",
 			"わ","ゐ","ゑ","を",
-			"ん","ゔ"
+			"ん", "ゔ",
+			"ぁ", "ぃ", "ぅ", "ぇ", "ぉ", "ゕ", "ゖ", "っ", "ゃ", "ゅ", "ょ", "ゎ"
 		];
+	}
+	
+	/**
+	 * Converts a normal katakana character to it's corresponding small-form, if possible
+	 * @param	character
+	 * @return	the small-form version of the character, if it exists; otherwise the original character
+	 */
+	public static function bigToSmall(character:String):String
+	{
+		return switch(character)
+		{
+			case "ア":"ァ";
+			case "イ":"ィ";
+			case "ウ":"ゥ";
+			case "エ":"ェ";
+			case "オ":"ォ";
+			case "カ":"ヵ";
+			case "ケ":"ヶ";
+			case "ツ":"ッ";
+			case "ヤ":"ャ";
+			case "ユ":"ュ";
+			case "ヨ":"ョ";
+			case "ワ":"ヮ":
+			default: character;
+		}
+	}
+	
+	/**
+	 * Converts a small-form katakana character to it's corresponding large-form, if possible
+	 * @param	character
+	 * @return	the large form version of the character, if it exists; otherwise the original character
+	 */
+	public static function smallToBig(character:String):String
+	{
+		return switch(character)
+		{
+			case "ぁ":"あ";
+			case "ぃ":"い";
+			case "ぅ":"う";
+			case "ぇ":"え";
+			case "ぉ":"お";
+			case "ゕ":"か";
+			case "ゖ":"け";
+			case "っ":"つ";
+			case "ゃ":"や";
+			case "ゅ":"ゆ";
+			case "ょ":"よ";
+			case "ゎ":"わ";
+			default: character;
+		}
 	}
 }
