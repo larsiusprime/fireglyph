@@ -1,4 +1,4 @@
-package firetongue.alphabet.japanese;
+package fireglyph.japanese;
 
 /**
  * See https://en.wikipedia.org/wiki/Hiragana
@@ -52,6 +52,7 @@ class Hiragana
 					case "ほ": "ぽ";
 					default: character;
 				}
+			default: character;
 		}
 	}
 	
@@ -191,7 +192,7 @@ class Hiragana
 			case "ヤ":"ャ";
 			case "ユ":"ュ";
 			case "ヨ":"ョ";
-			case "ワ":"ヮ":
+			case "ワ":"ヮ";
 			default: character;
 		}
 	}

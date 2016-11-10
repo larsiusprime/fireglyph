@@ -1,4 +1,4 @@
-package firetongue.alphabet.japanese;
+package fireglyph.japanese;
 
 /**
  * See https://en.wikipedia.org/wiki/Katakana
@@ -12,7 +12,7 @@ class Katakana
 	 * @param	diacritic dakuten ("゛") or handakuten ("゜")
 	 * @return	the final marked character, or the original character if the combination is invalid
 	 */
-	public static function applyDiacritic(character:String, diacritic:String):Array<String>
+	public static function applyDiacritic(character:String, diacritic:String):String
 	{
 		return switch(diacritic)
 		{
@@ -60,7 +60,7 @@ class Katakana
 	 * @param	character a katakana character
 	 * @return	the unmarked version of the character, or the original character if it had no diacritic
 	 */
-	public static function removeDiacritic(character:String):Array<String>
+	public static function removeDiacritic(character:String):String
 	{
 		return switch(character)
 		{
@@ -83,12 +83,12 @@ class Katakana
 			case "ビ":"ヒ";
 			case "ブ":"フ";
 			case "ベ":"ヘ";
-			case "ボ":"ホ": 
+			case "ボ":"ホ"; 
 			case "パ":"ハ";
 			case "ピ":"ヒ";
 			case "プ":"フ";
 			case "ペ":"ヘ";
-			case "ポ":"ホ": 
+			case "ポ":"ホ";
 			default: character;
 		}
 	}
@@ -204,7 +204,7 @@ class Katakana
 			case "ヤ":"ャ";
 			case "ユ":"ュ";
 			case "ヨ":"ョ";
-			case "ワ":"ヮ":
+			case "ワ":"ヮ";
 			default: character;
 		}
 	}

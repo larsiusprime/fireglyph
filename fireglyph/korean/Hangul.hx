@@ -1,4 +1,4 @@
-package firetongue.alphabet.korean;
+package fireglyph.korean;
 import haxe.Utf8;
 
 /**
@@ -15,6 +15,7 @@ class Hangul
 	private var vowelsCompat:Array<String>;
 	
 	private var map:Map<String,Map<String,String>>;
+	private var reverseMap:Map<String,Array<String>>;
 	
 	public function new() 
 	{
@@ -24,7 +25,7 @@ class Hangul
 		leadsCompat = Jamo.getLeadConsonants(false);
 		tailsCompat = Jamo.getTailConsonants(false);
 		vowelsCompat = Jamo.getVowels(false);
-		map = getMap();
+		makeMap();
 	}
 	
 	public function destroy()
@@ -57,12 +58,18 @@ class Hangul
 	
 	public function compose(lead:String, vowel:String, tail:String):String
 	{
-		lead = fixJamoLeadConsonant(lead);
-		if (lead == "") return "";
-		vowel = fixJamoVowel(vowel);
-		if (vowel == "") return "";
-		tail = fixJamoTailConsonant(tail);
-		if (tail == "") return "";
+		var newLead = fixJamoLeadConsonant(lead);
+		if (lead != "" && newLead == "") return "";
+		
+		var newVowel = fixJamoVowel(vowel);
+		if (vowel != "" && newVowel == "") return "";
+		
+		var newTail = fixJamoTailConsonant(tail);
+		if (tail != "" && newTail == "") return "";
+		
+		lead = newLead;
+		vowel = newVowel;
+		tail = newTail;
 		
 		var leadPlusVowel = uJoin(lead, vowel);
 		
@@ -80,6 +87,20 @@ class Hangul
 		}
 		
 		return "";
+	}
+	
+	/**
+	 * Decomposes a hangul character into its constituent jamos
+	 * @param	str a hangul character
+	 * @return an array of [leadConsonant, vowel, tailConsonant], or null if invalid
+	 */
+	public function decompose(str:String):Array<String>
+	{
+		if (reverseMap.exists(str))
+		{
+			return reverseMap.get(str).copy();
+		}
+		return null;
 	}
 	
 	private function fixJamoLeadConsonant(a:String):String
@@ -106,10 +127,11 @@ class Hangul
 		return "";                              //was not found, return empty string
 	}
 	
-	private function getMap():Map<String,Map<String,String>>
+	private function makeMap()
 	{
 		var grid = getRaw();
-		var map = new Map<String,Map<String,String>>();
+		map = new Map<String,Map<String,String>>();
+		reverseMap = new Map<String,Array<String>>();
 		
 		var fields = grid[0];
 		
@@ -128,6 +150,7 @@ class Hangul
 				var tail = fields[col];
 				tail = fixJamoTailConsonant(tail);
 				tailMap.set(tail, hangul);
+				reverseMap.set(hangul, [lead, vowel, tail]);
 			}
 			
 			var leadPlusVowel = uJoin(lead, vowel);
@@ -143,8 +166,6 @@ class Hangul
 				row.pop();
 			}
 		}
-		
-		return map;
 	}
 	
 	/***UTF8 utility functions***/

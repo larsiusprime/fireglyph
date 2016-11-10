@@ -1,4 +1,4 @@
-package firetongue.alphabet.korean;
+package fireglyph.korean;
 
 /**
  * See https://en.wikipedia.org/wiki/Hangul
