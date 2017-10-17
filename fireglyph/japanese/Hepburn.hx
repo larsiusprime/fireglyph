@@ -108,21 +108,21 @@ class Hepburn
 	{
         init();
 		
-        // All conversion is done in upper-case
+		// All conversion is done in upper-case
 		str = str.toUpperCase();
 		
-        // Correct use of sokuon
+		// Correct use of sokuon
 		str = Util.uReplace(str, "TC", "ッC", true);
 		
-        str = new EReg("([^AEIOUN])\\1", "g").replace(str, "ッ$1");
+		str = new EReg("([^AEIOUN])\\1", "g").replace(str, "ッ$1");
 		
-        // Transliteration
+		// Transliteration
 		str = bulkReplace(str, null, katakanaPairs);
 		
-        // Fix any remaining N/M usage (that isn't a N' usage)
+		// Fix any remaining N/M usage (that isn't a N' usage)
 		str = new EReg("N|M", "g").replace(str, "ン");
-			
-        return str;
+		
+		return str;
 	}
 	
 	/***PRIVATE***/
@@ -315,7 +315,7 @@ class Hepburn
 	
 	private static function bulkReplace(str:String, map:Map<String,String>, arr:Array<Array<String>>=null)
 	{
-        var newStr = str;
+		var newStr = str;
 		if (arr == null && map != null)
 		{
             for (key in map.keys())
@@ -328,7 +328,7 @@ class Hepburn
 		{
             for (pair in arr)
 			{
-                var match = pair[1];
+				var match = pair[1];
 				var replace = pair[0];
                 newStr = Util.uReplace(newStr, match, replace, false);
 			}
@@ -373,14 +373,15 @@ class HepburnTests
 		if (a != b)
         {
 			testsFailed++;
-			testMsg.push(msg + "(" + a + " VS " + b + ")");
+			testMsg.push(msg);
 		}
 		testsTotal++;
 	}
 	
 	public static function assert(b:Bool, msg:String="")
 	{
-		if (!b){
+		if (!b)
+		{
 			testsFailed++;
 			testMsg.push(msg);
 		}
@@ -388,7 +389,7 @@ class HepburnTests
 	}
 	
 	
-	public static function run()
+	public static function run(log:String->Void)
 	{
 		if (!_init)
 		{

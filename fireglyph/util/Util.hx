@@ -19,102 +19,54 @@ class Util
 	 */
 	public static function uReplace(s:String, substr:String, by:String, recursive:Bool=true, failsafe:Int=0):String
 	{
-		if (Unifill.uIndexOf(s, substr) == -1) return s;
-		if (failsafe > 1000)
+		var arr = Unifill.uSplit(s, substr);
+		
+		var sub = new StringBuf();
+		for (i in 0...arr.length)
 		{
-			trace("FAILSAFE TRIGGERED x" + failsafe + "(" + s + "," + substr + "," + by + "," + recursive+")");
-			return s;
-		}
-		failsafe++;
-		
-		var result:Array<CodePoint> = [];
-		var strArr:Array<CodePoint> = strToCodePoints(s);			//turn the main string into an array of code points
-		var substrArr:Array<CodePoint> = strToCodePoints(substr);	//turn the substr into an array of code points
-		var byArr:Array<CodePoint> = strToCodePoints(by);			//turn the by str into an array of code points
-		
-		var matchI:Int = 0;
-		var onMatch = false;
-		var fullMatch = false;
-		
-		var tempMatchArr:Array<CodePoint> = [];
-		
-		for (i in 0...strArr.length)
-		{
-			//iterate through the main string code point by code point
-			var cp:CodePoint = strArr[i];
-			
-			if (matchI < substrArr.length && cp == substrArr[matchI])
+			sub.add(arr[i]);
+			if (i != arr.length - 1)
 			{
-				//detected the substr -- advance but don't write to the buffer
-				onMatch = true;
-				matchI++;
-				tempMatchArr.push(cp);
-				if (tempMatchArr.length == substrArr.length)
-				{
-					//write the replacement str to the result
-					for (i in 0...byArr.length)
-					{
-						result.push(byArr[i]);
-					}
-					matchI = 0;
-					onMatch = false;
-					tempMatchArr = [];
-				}
-			}
-			else
-			{
-				if (onMatch)
-				{
-					//stop ignoring the partially matched str by dumping it to the result
-					for (i in 0...tempMatchArr.length)
-					{
-						result.push(tempMatchArr[i]);
-					}
-					matchI = 0;
-					onMatch = false;
-					tempMatchArr = [];
-				}
-				//write the character to the result
-				result.push(cp);
+				sub.add(by);
 			}
 		}
-		
-		if (tempMatchArr.length > 0)
-		{
-			if (tempMatchArr.length == substrArr.length)
-			{
-				for (i in 0...byArr.length)
-				{
-					result.push(byArr[i]);
-				}
-			}
-			else
-			{
-				for (i in 0...tempMatchArr.length)
-				{
-					result.push(tempMatchArr[i]);
-				}
-			}
-		}
-		
-		if (recursive)
-		{
-			return uReplace(Unifill.uToString(result), substr, by, true, failsafe+1);
-		}
-		
-		//return the final string
-		return Unifill.uToString(result);
+		return sub.toString();
 	}
 	
 	public static function strToCodePoints(s:String):Array<CodePoint>
 	{
+		if (s == null || s == "") return [];
+		
 		var strArr:Array<CodePoint> = [];
 		//turn the main string into an array of code points
 		var iter = Unifill.uIterator(s);
+		
+		var fail = false;
 		while (iter.hasNext())
 		{
-			strArr.push(iter.next());
+			try
+			{
+				var cp = iter.next();
+				strArr.push(cp);
+			}
+			catch (msg:Dynamic)
+			{
+				fail = true;
+				break;
+			}
 		}
+		
+		if (fail)
+		{
+			//alright, do it the hard way:
+			strArr = [];
+			var len = Unifill.uLength(s);
+			for (i in 0...len)
+			{
+				strArr.push(Unifill.uCodePointAt(s, i));
+			}
+		}
+		
 		return strArr;
 	}
 }
